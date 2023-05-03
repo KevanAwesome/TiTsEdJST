@@ -578,7 +578,7 @@
     function buildTreatmentTable(){
       const table = createTable();
       table.appendChild(createButtonRow('Remove Treated Perk', function() {
-        game_app.pc.removePerk("Treated")
+        game_app.pc.removeStatusEffect("Treated")
       }));
       return table;
     }
