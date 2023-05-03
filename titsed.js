@@ -485,9 +485,9 @@
       table.appendChild(createNumberControlRow2('Anal Looseness', game_app.pc.ass, 'loosenessRaw', 'loosenessMod'));
       table.appendChild(createNumberControlRow2('Anal Wetness', game_app.pc.ass, 'wetnessRaw', 'wetnessMod'));
       table.appendChild(createFlagRow('Flags', game_app.pc.ass, 'flags', 'ass_flag', game_app.GLOBAL.FLAG_NAMES, VALID.FLAGS.ASS));
-      //const n = document.createTextNode('Dump');
-      //const c = document.createTextNode(JSON.stringify(game_app.pc));
-      //table.appendChild(createTableRow([n, c]));
+      const n = document.createTextNode('Dump');
+      const c = document.createTextNode(JSON.stringify(game_app.pc));
+      table.appendChild(createTableRow([n, c]));
       return table;
     }
 
