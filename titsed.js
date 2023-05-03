@@ -156,6 +156,7 @@
 
     var ui_profile = null;
     var ui_body = null;
+    var ui_perks = null;
 
     // creates a map of lists of valid values for the dropdowns and flags
     const VALID = (function() {
@@ -485,9 +486,6 @@
       table.appendChild(createNumberControlRow2('Anal Looseness', game_app.pc.ass, 'loosenessRaw', 'loosenessMod'));
       table.appendChild(createNumberControlRow2('Anal Wetness', game_app.pc.ass, 'wetnessRaw', 'wetnessMod'));
       table.appendChild(createFlagRow('Flags', game_app.pc.ass, 'flags', 'ass_flag', game_app.GLOBAL.FLAG_NAMES, VALID.FLAGS.ASS));
-      const n = document.createTextNode('Dump');
-      const c = document.createTextNode(JSON.stringify(game_app.pc));
-      table.appendChild(createTableRow([n, c]));
       return table;
     }
 
@@ -1009,10 +1007,17 @@
       nav_tab_body.textContent = 'Body';
       nav_base.appendChild(nav_tab_body);
 
+      // perks tab
+      const nav_tab_perks = document.createElement('span');
+      nav_tab_body.textContent = 'Perks';
+      nav_base.appendChild(nav_tab_perks);
+
       nav_tab_profile.onclick = function () {
         if(ui_profile != null && ui_body != null) {
           nav_tab_body.className = '';
           ui_body.className = '';
+          nav_tab_perks.className = '';
+          ui_perks.className = '';
           nav_tab_profile.className = 'active';
           ui_profile.className = 'active';
         }
@@ -1021,8 +1026,20 @@
         if(ui_profile != null && ui_body != null) {
           nav_tab_profile.className = '';
           ui_profile.className = '';
+          nav_tab_perks.className = '';
+          ui_perks.className = '';
           nav_tab_body.className = 'active';
           ui_body.className = 'active';
+        }
+      };
+      nav_tab_perks.onclick = function () {
+        if(ui_profile != null && ui_perks != null) {
+          nav_tab_profile.className = '';
+          ui_profile.className = '';
+          nav_tab_body.className = '';
+          ui_body.className = '';
+          nav_tab_perks.className = 'active';
+          ui_perks.className = 'active';
         }
       };
 
@@ -1139,6 +1156,17 @@
       ui_body = controls;
       container.appendChild(controls);
     }
+    
+    function buildPerksUI(container) {
+      const controls = document.createElement('div');
+      
+      //const n = document.createTextNode('Dump');
+      //const c = document.createTextNode(JSON.stringify(game_app.pc));
+      //table.appendChild(createTableRow([n, c]));
+      
+      ui_perks = controls;
+      container.appendChild(controls);
+    }
 
     function buildUI() {
       const controls = getById(`${id_prefix}_data`);
@@ -1152,6 +1180,7 @@
 
       buildProfileUI(controls);
       buildBodyUI(controls);
+      buildPerksUI(controls);
     }
 
     // This is our 'main' function
