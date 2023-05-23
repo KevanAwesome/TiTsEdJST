@@ -1,3 +1,7 @@
+# TiTsEdJSTest
+
+This is a fork! Used for my own testing.
+
 # TiTsEdJS
 
 TiTsEdJS is a javascript based state editor for the H-game TiTs. It is loaded into the same runtime enivornment as the game itself and edits the variables of the game in real time.
