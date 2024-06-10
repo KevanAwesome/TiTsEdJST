@@ -156,6 +156,7 @@
 
     var ui_profile = null;
     var ui_body = null;
+    var ui_perks = null;
 
     // creates a map of lists of valid values for the dropdowns and flags
     const VALID = (function() {
@@ -568,6 +569,14 @@
         game_app.ui.showOptions();
         toggleEditor();
         game_app.ui.state.optionMode = oldOptionMode;
+      }));
+      return table;
+    }
+    
+    function buildTreatmentTable(){
+      const table = createTable();
+      table.appendChild(createButtonRow('Remove Treated Perk', function() {
+        game_app.pc.removeStatusEffect("Treated")
       }));
       return table;
     }
@@ -998,10 +1007,17 @@
       nav_tab_body.textContent = 'Body';
       nav_base.appendChild(nav_tab_body);
 
+      // perks tab
+      const nav_tab_perks = document.createElement('span');
+      nav_tab_body.textContent = 'Perks';
+      nav_base.appendChild(nav_tab_perks);
+
       nav_tab_profile.onclick = function () {
         if(ui_profile != null && ui_body != null) {
           nav_tab_body.className = '';
           ui_body.className = '';
+          nav_tab_perks.className = '';
+          ui_perks.className = '';
           nav_tab_profile.className = 'active';
           ui_profile.className = 'active';
         }
@@ -1010,8 +1026,20 @@
         if(ui_profile != null && ui_body != null) {
           nav_tab_profile.className = '';
           ui_profile.className = '';
+          nav_tab_perks.className = '';
+          ui_perks.className = '';
           nav_tab_body.className = 'active';
           ui_body.className = 'active';
+        }
+      };
+      nav_tab_perks.onclick = function () {
+        if(ui_profile != null && ui_perks != null) {
+          nav_tab_profile.className = '';
+          ui_profile.className = '';
+          nav_tab_body.className = '';
+          ui_body.className = '';
+          nav_tab_perks.className = 'active';
+          ui_perks.className = 'active';
         }
       };
 
@@ -1032,6 +1060,9 @@
       {
         controls.appendChild(createHeader('Cheats'));
         controls.appendChild(buildCheatTable());
+      }
+      {
+        controls.appendChild(buildTreatmentTable());
       }
       {
         controls.appendChild(createSeperator());
@@ -1125,6 +1156,17 @@
       ui_body = controls;
       container.appendChild(controls);
     }
+    
+    function buildPerksUI(container) {
+      const controls = document.createElement('div');
+      
+      //const n = document.createTextNode('Dump');
+      //const c = document.createTextNode(JSON.stringify(game_app.pc));
+      //table.appendChild(createTableRow([n, c]));
+      
+      ui_perks = controls;
+      container.appendChild(controls);
+    }
 
     function buildUI() {
       const controls = getById(`${id_prefix}_data`);
@@ -1138,6 +1180,7 @@
 
       buildProfileUI(controls);
       buildBodyUI(controls);
+      buildPerksUI(controls);
     }
 
     // This is our 'main' function
